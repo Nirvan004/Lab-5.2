@@ -42,4 +42,16 @@ password.addEventListener("input", () => {
     } else {
         clearError(password, passwordError);
     }
+    if (confirmPassword.value) {
+      confirmPassword.dispatchEvent(new Event("input"));
+    }
+});
+  confirmPassword.addEventListener("input", () => {
+    if (confirmPassword.validity.valueMissing) {
+      showError(confirmPassword, "Please confirm your password.", confirmPasswordError);
+    } else if (confirmPassword.value !== password.value) {
+      showError(confirmPassword, "Passwords do not match.", confirmPasswordError);
+    } else {
+      clearError(confirmPassword, confirmPasswordError);
+    }
 });
