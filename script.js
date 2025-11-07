@@ -46,7 +46,8 @@ password.addEventListener("input", () => {
       confirmPassword.dispatchEvent(new Event("input"));
     }
 });
-  confirmPassword.addEventListener("input", () => {
+
+confirmPassword.addEventListener("input", () => {
     if (confirmPassword.validity.valueMissing) {
       showError(confirmPassword, "Please confirm your password.", confirmPasswordError);
     } else if (confirmPassword.value !== password.value) {
@@ -55,3 +56,27 @@ password.addEventListener("input", () => {
       clearError(confirmPassword, confirmPasswordError);
     }
 });
+
+form.addEventListener("submit", (event) => {
+    event.preventDefault(); 
+
+    username.dispatchEvent(new Event("input"));
+    email.dispatchEvent(new Event("input"));
+    password.dispatchEvent(new Event("input"));
+    confirmPassword.dispatchEvent(new Event("input"));
+
+    if (username.checkValidity() && email.checkValidity() && password.checkValidity() && confirmPassword.value === password.value) {
+      alert("You Are Now Registered :D");
+      
+      localStorage.setItem("username", username.value);
+
+      form.reset();
+
+      [username, email, password, confirmPassword].forEach((input) => {
+        input.classList.remove("valid");
+      });
+    } else {
+      const firstInvalid = form.querySelector(":invalid");
+      if (firstInvalid) firstInvalid.focus();
+    }
+  });
