@@ -9,6 +9,23 @@ const emailError = document.getElementById("emailError");
 const passwordError = document.getElementById("passwordError");
 const confirmPasswordError = document.getElementById("confirmPasswordError")
 
+function showError(input, message, errorSpan) {
+  input.classList.remove("valid");
+  errorSpan.textContent = message;
+}
+
+function clearError(input, errorSpan) {
+  input.classList.add("valid");
+  errorSpan.textContent = "";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const savedUsername = localStorage.getItem("username");
+  if (savedUsername) {
+    username.value = savedUsername;
+  }
+});
+
 
 username.addEventListener("input", () => {
     if (username.validity.valueMissing) {
